@@ -1,0 +1,17 @@
+[Unit]
+Description=EZ-Torrent
+After=network.target
+StartLimitIntervalSec=0
+
+[Service]
+Type=simple
+ExecStart=/usr/bin/node /home/pi/Documents/GitHub/ez-torrent/.output/server/index.mjs
+WorkingDirectory=/home/pi/Documents/GitHub/ez-torrent
+EnvironmentFile=/home/pi/Documents/GitHub/ez-torrent/.env
+User=pi
+
+Restart=always
+RestartSec=1
+
+[Install]
+WantedBy=multi-user.target
