@@ -5,7 +5,7 @@ StartLimitIntervalSec=0
 
 [Service]
 Type=simple
-ExecStart=/usr/bin/node /home/pi/Documents/GitHub/ez-torrent/.output/server/index.mjs
+ExecStart=/home/pi/.nvm/versions/node/v16.20.2/bin/node /home/pi/Documents/GitHub/ez-torrent/https.mjs
 WorkingDirectory=/home/pi/Documents/GitHub/ez-torrent
 EnvironmentFile=/home/pi/Documents/GitHub/ez-torrent/.env
 User=pi
