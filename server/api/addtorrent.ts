@@ -19,7 +19,7 @@ export default defineEventHandler(async (event) => {
   // console.log(magnetLink)
   // Add the magnet link
   function addTorrent(title, magnet) {
-    console.log('Adding torrent...', title, magnet)
+    console.log('Adding torrent...', title)
     return new Promise((resolve, reject) => {
       transmission.addUrl(magnet, {
         'download-dir': '/media/ssd-fl',
