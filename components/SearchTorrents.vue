@@ -4,18 +4,15 @@ const columns = [{ key: 'title', label: '' }, { key: 'seeds', label: '' }, { key
 
 // Input
 const query = ref('')
+const categories = ref(['All', 'Movies', 'TV', 'Music', 'Games', 'Applications', 'Books', 'Other'])
+const category = ref('All')
 
 const { data, refresh, pending } = await useFetch('/api/searchtorrents', {
   method: 'POST',
-  body: { query },
+  body: { query, category },
   immediate: true,
   watch: false,
 })
-
-function go() {
-  if (query.value)
-    refresh()
-}
 
 async function addTorrent($event, torrent) {
   $event.target.style.color = 'blue'
@@ -36,11 +33,18 @@ async function addTorrent($event, torrent) {
     <!-- Input -->
     <div
       flex items-center justify-center
-      p="y-2" m="t-5"
+      p="y-2"
+      m="t-5"
+      gap-3
     >
       <UInput
         v-model="query" placeholder="Search" icon="i-heroicons-magnifying-glass-20-solid"
-        @keydown.enter="go"
+        @keydown.enter="refresh"
+      />
+      <USelect
+        v-model="category"
+        :options="categories"
+        @update:model-value="refresh"
       />
     </div>
     <!-- {{ Object.keys(data?.[0]) }} -->
@@ -50,16 +54,14 @@ async function addTorrent($event, torrent) {
           {{ row.title }}
         </div>
         <div text-grey text-left>
-          <span>{{ row.provider }}</span> | <span>{{ row.size }}</span>
+          <span>{{ row.provider }}</span> | <span>{{ row.size }}</span> | <span>{{ row.time }}</span>
         </div>
       </template>
       <template #seeds-data="{ row }">
         <span text-green>{{ row.seeds }}</span>{{ row.peers ? ' / ' : '' }}<span text-left text-red>{{ row.peers }}</span>
       </template>
       <template #action-data="{ row }">
-        <button i-carbon-download @click="addTorrent($event, row)">
-          was
-        </button>
+        <button i-carbon-download @click="addTorrent($event, row)" />
       </template>
     </UTable>
   </div>
