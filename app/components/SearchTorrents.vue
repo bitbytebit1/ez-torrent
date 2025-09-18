@@ -13,6 +13,7 @@ const { data, refresh, pending } = useLazyFetch('/api/searchtorrents', {
   body: { query, category },
   immediate: true,
   watch: false,
+  server: false,
 })
 
 async function addTorrent ($event, torrent) {
