@@ -25,7 +25,11 @@ onMounted(() => {
 </script>
 
 <template>
-  <NuxtLink :to="webui">
-    <span text-green>{{ formatBytes(data?.downloadSpeed) }}</span> / <span text-red>{{ formatBytes(data?.uploadSpeed) }}</span> / <span text-yellow>{{ data?.activeTorrentCount }}</span>
-  </NuxtLink>
+  <div class="py-4">
+    <NuxtLink
+      :to="webui"
+    >
+      <span class="text-success">{{ formatBytes(data?.downloadSpeed) }}</span> / <span class="text-error">{{ formatBytes(data?.uploadSpeed) }}</span> / <span class="text-warning">{{ data?.activeTorrentCount }}</span>
+    </NuxtLink>
+  </div>
 </template>

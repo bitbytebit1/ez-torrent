@@ -28,70 +28,68 @@ async function addTorrent ($event, torrent) {
 </script>
 
 <template>
-  <div class="mx-auto max-w-screen-md">
-    <!-- Input -->
-    <div
-      class="flex items-center justify-center gap-3"
-    >
-      <UInput
-        v-model="query"
-        class="w-full"
-        placeholder="Search"
-        icon="i-heroicons-magnifying-glass-20-solid"
-        @keydown.enter="refresh"
-      />
-      <USelect
-        v-model="category"
-        class="w-48"
-        :items="categories"
-        @update:model-value="refresh"
-      />
-    </div>
-    <!-- Table -->
-    <UTable
-      :data="data"
-      :loading="pending"
-      class="max-w-screen"
-      :columns="columns"
-    >
-      <template #title-cell="{ row }">
-        <div
-          class="whitespace-break-spaces text-left dark:text-white text-black"
-          style="word-break: break-word;"
-        >
-          {{ row.original.title }}
-        </div>
-        <div
-          class="text-grey text-left flex items-center gap-1"
-        >
-          <span>{{ row.original.size }}</span> | <span>{{ row.original.time }}</span> |
-
-          <UIcon
-            v-if="row.original.status === 'trusted'"
-            name="i-codicon-workspace-trusted"
-            color="green"
-            class="size-3 text-green"
-          />
-
-          <UIcon
-            v-if="row.original.status === 'vip'"
-            name="i-mdi-crown"
-            color="yellow"
-            class="size-3 text-yellow"
-          />
-        </div>
-      </template>
-      <template #seeds-cell="{ row }">
-        <span class="text-primary">{{ row.original.seeds }}</span> / <span class="text-left text-error">{{ row.original.peers }}</span>
-      </template>
-      <template #action-cell="{ row }">
-        <UButton
-          color="grey"
-          variant="ghost"
-          icon="i-carbon-download"
-          @click="addTorrent($event, row)"
-        />
-      </template>
-    </UTable>
+  <!-- Input -->
+  <div
+    class="flex items-center justify-center gap-3"
+  >
+    <UInput
+      v-model="query"
+      class="w-full"
+      placeholder="Search"
+      icon="i-heroicons-magnifying-glass-20-solid"
+      @keydown.enter="refresh"
+    />
+    <USelect
+      v-model="category"
+      class="w-48"
+      :items="categories"
+      @update:model-value="refresh"
+    />
   </div>
+  <!-- Table -->
+  <UTable
+    :data="data"
+    :loading="pending"
+    class="max-w-screen"
+    :columns="columns"
+  >
+    <template #title-cell="{ row }">
+      <div
+        class="whitespace-break-spaces text-left dark:text-white text-black"
+        style="word-break: break-word;"
+      >
+        {{ row.original.title }}
+      </div>
+      <div
+        class="text-grey text-left flex items-center gap-1"
+      >
+        <span>{{ row.original.size }}</span> | <span>{{ row.original.time }}</span> |
+
+        <UIcon
+          v-if="row.original.status === 'trusted'"
+          name="i-codicon-workspace-trusted"
+          color="green"
+          class="size-3 text-green"
+        />
+
+        <UIcon
+          v-if="row.original.status === 'vip'"
+          name="i-mdi-crown"
+          color="yellow"
+          class="size-3 text-yellow"
+        />
+      </div>
+    </template>
+    <template #seeds-cell="{ row }">
+      <span class="text-primary">{{ row.original.seeds }}</span> / <span class="text-left text-error">{{ row.original.peers }}</span>
+    </template>
+    <template #action-cell="{ row }">
+      <UButton
+        color="grey"
+        variant="ghost"
+        icon="i-carbon-download"
+        @click="addTorrent($event, row)"
+      />
+    </template>
+  </UTable>
 </template>

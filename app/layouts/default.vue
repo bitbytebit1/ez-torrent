@@ -1,6 +1,6 @@
 <template>
   <UApp>
-    <main class="py-8 min-h-screen">
+    <main class="min-h-screen mx-auto max-w-screen-md text-center">
       <slot />
       <!-- <Footer /> -->
     </main>
