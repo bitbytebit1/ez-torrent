@@ -5,10 +5,10 @@ StartLimitIntervalSec=0
 
 [Service]
 Type=simple
-ExecStart=/home/pi/.nvm/versions/node/v16.20.2/bin/node /home/pi/Documents/GitHub/ez-torrent/https.mjs
-WorkingDirectory=/home/pi/Documents/GitHub/ez-torrent
-EnvironmentFile=/home/pi/Documents/GitHub/ez-torrent/.env
-User=pi
+ExecStart=/home/byte/.nvm/versions/node/v20.14.0/bin/node /home/byte/Documents/GitHub/ez-torrent/.output/server/index.mjs
+WorkingDirectory=/home/byte/Documents/GitHub/ez-torrent
+EnvironmentFile=/home/byte/Documents/GitHub/ez-torrent/.env
+User=byte
 
 Restart=always
 RestartSec=1

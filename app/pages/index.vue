@@ -1,6 +1,6 @@
 <template>
   <div>
-    <ActiveTorrents />
+    <!-- <ActiveTorrents /> -->
     <SearchTorrents />
   </div>
 </template>

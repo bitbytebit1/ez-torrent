@@ -1,7 +1,19 @@
-import torrentSearchApi from 'torrent-search-api'
+import type { CategoryIds } from '../utils/tpb/apibay.org.js'
+import { tpbApi } from '../utils/tpb/apibay.org.js'
 
-torrentSearchApi.enablePublicProviders()
 export default defineEventHandler(async (event) => {
   const { query, category = 'All' } = await readBody(event)
-  return await torrentSearchApi.search(query, category, 100)
+
+  if (!query) {
+    return tpbApi.top100('all')
+  }
+
+  const categoryMap: Record<string, number> = {
+    Audio: 100,
+    Video: 200,
+    Applications: 300,
+    Games: 400,
+  }
+
+  return await tpbApi.search({ q: query, cat: categoryMap[category] as CategoryIds })
 })

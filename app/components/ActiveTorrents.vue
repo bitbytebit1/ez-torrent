@@ -3,9 +3,10 @@ const { data, refresh } = await useFetch('/api/gettorrents')
 
 const { webui } = useRuntimeConfig().public.transmission
 
-function formatBytes(bytes, decimals = 1) {
-  if (!+bytes)
+function formatBytes (bytes, decimals = 1) {
+  if (!+bytes) {
     return '0 Bytes'
+  }
 
   const k = 1024
   const dm = decimals < 0 ? 0 : decimals

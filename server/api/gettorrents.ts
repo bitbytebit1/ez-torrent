@@ -9,13 +9,15 @@ export default defineEventHandler(async (event) => {
     username, // Your Transmission RPC username
     password, // Your Transmission RPC password
   })
-  function getTransmissionStats() {
+
+  function getTransmissionStats () {
     return new Promise((resolve, reject) => {
       transmission.sessionStats((err, result) => {
-        if (err)
+        if (err) {
           reject(err)
-        else
+        } else {
           resolve(result)
+        }
       })
     })
   }

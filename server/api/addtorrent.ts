@@ -1,10 +1,10 @@
-import Transmission from 'transmission'
 import torrentSearchApi from 'torrent-search-api'
+import Transmission from 'transmission'
 
 torrentSearchApi.enablePublicProviders()
 
 export default defineEventHandler(async (event) => {
-  const { host, port, username, password } = useRuntimeConfig().transmission
+  const { host, port, username, password, directory } = useRuntimeConfig().transmission
   const transmission = new Transmission({
     host, // Your Transmission host (change if needed)
     port, // Transmission RPC port
@@ -18,14 +18,15 @@ export default defineEventHandler(async (event) => {
 
   // console.log(magnetLink)
   // Add the magnet link
-  function addTorrent(title, magnet) {
+  function addTorrent (title, magnet) {
     console.log('Adding torrent...', title)
     return new Promise((resolve, reject) => {
       transmission.addUrl(magnet, {
-        'download-dir': '/media/ssd-fl',
+        'download-dir': directory,
       }, (err, result) => {
-        if (err)
+        if (err) {
           return reject(err)
+        }
 
         const id = result.id
         resolve(true)
