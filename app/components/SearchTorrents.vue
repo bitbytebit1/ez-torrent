@@ -19,7 +19,7 @@ async function addTorrent ($event, torrent) {
   $event.target.style.color = 'blue'
   $fetch('/api/addtorrent', {
     method: 'POST',
-    body: { torrent },
+    body: { torrent: torrent.original },
   }).then((resp) => {
     $event.target.style.color = resp ? 'green' : 'red'
   })

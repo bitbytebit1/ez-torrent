@@ -1,7 +1,4 @@
-import torrentSearchApi from 'torrent-search-api'
 import Transmission from 'transmission'
-
-torrentSearchApi.enablePublicProviders()
 
 export default defineEventHandler(async (event) => {
   const { host, port, username, password, directory } = useRuntimeConfig().transmission
@@ -12,26 +9,17 @@ export default defineEventHandler(async (event) => {
     password, // Your Transmission RPC password
   })
   const { torrent } = await readBody(event)
-  // Magnet link you want to add
 
-  const magnetLink = await torrentSearchApi.getMagnet(torrent)
+  console.log('Adding torrent...', torrent.title)
+  return new Promise((resolve, reject) => {
+    transmission.addUrl(torrent.magnet, {
+      'download-dir': directory,
+    }, (err, result) => {
+      if (err) {
+        return reject(err)
+      }
 
-  // console.log(magnetLink)
-  // Add the magnet link
-  function addTorrent (title, magnet) {
-    console.log('Adding torrent...', title)
-    return new Promise((resolve, reject) => {
-      transmission.addUrl(magnet, {
-        'download-dir': directory,
-      }, (err, result) => {
-        if (err) {
-          return reject(err)
-        }
-
-        const id = result.id
-        resolve(true)
-      })
+      resolve(true)
     })
-  }
-  return await addTorrent(torrent.title, magnetLink)
+  })
 })
