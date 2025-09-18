@@ -18,9 +18,6 @@ class TPB_Api {
 
   /**
    * Get torrent details
-   *
-   * @param id
-   * @returns
    */
   public async details (id: number) {
     return this.request<TorrentDetails>('/t.php', { id })
@@ -28,9 +25,6 @@ class TPB_Api {
 
   /**
    * Get top 100 torrents
-   *
-   * @param category
-   * @returns TorrentResults
    */
   public async top100 (category: CategoryIds | 'all' | 'recent') {
     return (await this.request<TorrentResults>(`/precompiled/data_top100_${category}.json`))
@@ -38,19 +32,12 @@ class TPB_Api {
 
   /**
    * Get last 100 added torrents
-   *
-   * @returns TorrentResults
-   */
   public async recent () {
     return await this.top100('recent')
   }
 
   /**
    * Get all torrents uploaded by user
-   *
-   * @param username
-   * @param page
-   * @returns
    */
   public async byUser (username: string, page = 0) {
     return this.request<SearchResults>('/q.php', { q: `user:${username}:${page}` })
@@ -58,10 +45,6 @@ class TPB_Api {
 
   /**
    * Create a request
-   *
-   * @param path      - e.g. `q.php`
-   * @param params    - e.g. { q: 'lord of the rings', cat: 208 }
-   * @returns
    */
   public async request<T>(path: string, params?: object): Promise<T> {
     const response = await $fetch(this.baseUrl + path + (params ? `?${new URLSearchParams(params as any).toString()}` : ''), {
@@ -78,13 +61,7 @@ class TPB_Api {
       provider: 'tpb',
       id: result.id,
       title: result.name,
-      //   time: new Date(result.added * 1000).toUTCString(),
-      //   format time without time
-      time: new Date(result.added * 1000).toLocaleString('en-US', {
-        year: 'numeric',
-        month: 'short',
-        day: 'numeric',
-      }),
+      time: new Date(result.added * 1000).toLocaleString('en-US', { year: 'numeric', month: 'short', day: 'numeric' }),
       seeds: int(result.seeders),
       peers: int(result.leechers),
       size: humanizeSize(result.size),
