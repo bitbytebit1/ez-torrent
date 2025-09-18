@@ -1,5 +1,5 @@
 <script setup>
-const { data, refresh } = await useFetch('/api/gettorrents')
+const { data, refresh } = useLazyFetch('/api/gettorrents')
 
 const { webui } = useRuntimeConfig().public.transmission
 

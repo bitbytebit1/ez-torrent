@@ -60,24 +60,45 @@ async function addTorrent ($event, torrent) {
       >
         {{ row.original.title }}
       </div>
-      <div
-        class="text-grey text-left flex items-center gap-1"
-      >
-        <span>{{ row.original.size }}</span> | <span>{{ row.original.time }}</span> |
+      <div class="pt-1 text-grey text-left flex items-center divide-x divide-gray-500/40 [&>*]:h-5 ">
+        <span class="pr-2">{{ row.original.size }}</span>
+        <span class="px-2">{{ row.original.time }}</span>
 
-        <UIcon
-          v-if="row.original.status === 'trusted'"
-          name="i-codicon-workspace-trusted"
-          color="green"
-          class="size-3 text-green"
-        />
-
-        <UIcon
-          v-if="row.original.status === 'vip'"
-          name="i-mdi-crown"
-          color="yellow"
-          class="size-3 text-yellow"
-        />
+        <!-- game-icons-pirate-flag -->
+        <template v-if="row.original.id">
+          <a
+            :href="`https://thepiratebay10.info/torrent/${row.original.id}/`"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="flex items-center h-full px-2"
+          >
+            <UIcon
+              name="i-game-icons-pirate-flag"
+              class="size-3 "
+            />
+          </a>
+        </template>
+        <template v-if="['trusted', 'vip'].includes(row.original.status)">
+          <span class="px-2 flex items-center h-full">
+            <UIcon
+              :name="row.original.status === 'trusted' ? 'i-codicon-workspace-trusted' : 'i-mdi-crown'"
+              class="size-3 text-green"
+            />
+          </span>
+        </template>
+        <template v-if="row.original.imdb">
+          <a
+            :href="`https://www.imdb.com/title/${row.original.imdb}/`"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="flex items-center h-full px-2"
+          >
+            <UIcon
+              name="bx-bxl-imdb"
+              class="size-3 text-yellow"
+            />
+          </a>
+        </template>
       </div>
     </template>
     <template #seeds-cell="{ row }">
