@@ -4,6 +4,7 @@ import { tpbApi } from '../utils/tpb/apibay.org.js'
 export default defineEventHandler(async (event) => {
   const { query, category = 'All' } = await readBody(event)
 
+  await sleep(1000000)
   if (!query) {
     return tpbApi.top100('all')
   }
@@ -17,3 +18,7 @@ export default defineEventHandler(async (event) => {
 
   return await tpbApi.search({ q: query, cat: categoryMap[category] as CategoryIds })
 })
+
+function sleep (ms: number) {
+  return new Promise(resolve => setTimeout(resolve, ms))
+}

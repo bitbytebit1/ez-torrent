@@ -46,8 +46,11 @@ async function addTorrent ($event, torrent) {
       @update:model-value="refresh"
     />
   </div>
+
+  {{ pending }}
   <!-- Table -->
   <UTable
+    :key="pending"
     :data="data"
     :loading="pending"
     class="max-w-screen"
