@@ -5,7 +5,7 @@ StartLimitIntervalSec=0
 
 [Service]
 Type=simple
-ExecStart=/home/byte/.nvm/versions/node/v20.14.0/bin/node /home/byte/Documents/GitHub/ez-torrent/.output/server/index.mjs
+ExecStart=/home/byte/.nvm/versions/node/v20.19.5/bin/node /home/byte/Documents/GitHub/ez-torrent/.output/server/index.mjs
 WorkingDirectory=/home/byte/Documents/GitHub/ez-torrent
 EnvironmentFile=/home/byte/Documents/GitHub/ez-torrent/.env
 User=byte
