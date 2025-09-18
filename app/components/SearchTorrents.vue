@@ -27,12 +27,10 @@ async function addTorrent ($event, torrent) {
 </script>
 
 <template>
-  <div
-    class="flex flex-col items-center justify-center"
-  >
+  <div class="mx-auto max-w-screen-md">
     <!-- Input -->
     <div
-      class="flex items-center justify-center py-2 mt-5 gap-3"
+      class="flex items-center justify-center gap-3"
     >
       <UInput
         v-model="query"
@@ -74,7 +72,6 @@ async function addTorrent ($event, torrent) {
             class="size-3 text-green"
           />
 
-          <!-- VIP icon -->
           <UIcon
             v-if="row.original.status === 'vip'"
             name="i-mdi-crown"
