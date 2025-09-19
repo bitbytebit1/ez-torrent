@@ -52,6 +52,9 @@ async function addTorrent ($event, torrent) {
     :loading="pending"
     class="max-w-screen"
     :columns="columns"
+    :ui="{
+      td: 'p-2 md:p-4',
+    }"
   >
     <template #title-cell="{ row }">
       <div
@@ -102,7 +105,12 @@ async function addTorrent ($event, torrent) {
       </div>
     </template>
     <template #seeds-cell="{ row }">
-      <span class="text-primary">{{ row.original.seeds }}</span> / <span class="text-left text-error">{{ row.original.peers }}</span>
+      <div class="text-primary">
+        {{ row.original.seeds }}
+      </div>
+      <div class="text-left text-error">
+        {{ row.original.peers }}
+      </div>
     </template>
     <template #action-cell="{ row }">
       <UButton
