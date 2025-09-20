@@ -18,8 +18,6 @@ export default defineEventHandler(async (event) => {
   // Check if user has a valid session
   const session = await getUserSession(event);
   if (session?.user?.isAuthenticated) {
-    setUserSession(event, session, cookieConfig);
-    setResponseHeader(event, "Cache-Control", "no-store, private, max-age=0");
     return
   }
 
