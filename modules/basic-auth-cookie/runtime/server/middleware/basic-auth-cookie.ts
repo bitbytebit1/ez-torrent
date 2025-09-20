@@ -1,5 +1,5 @@
 // server/middleware/basic-or-session.ts
-import { createError, defineEventHandler, getRequestHeader, setResponseHeader } from "h3";
+import { createError, defineEventHandler, getRequestHeader, getRequestIP, setResponseHeader } from "h3";
 import { Buffer } from "buffer";
 import { useRuntimeConfig } from "#imports";
 
@@ -18,6 +18,7 @@ export default defineEventHandler(async (event) => {
   // Check if user has a valid session
   const session = await getUserSession(event);
   if (session?.user?.isAuthenticated) {
+    console.log(`User ${session.user.name} authenticated via session, ip:`, getRequestIP(event, { xForwardedFor: true }));
     return
   }
 
@@ -37,6 +38,8 @@ export default defineEventHandler(async (event) => {
   if (credentials && users.some(validCredentials => validCredentials === credentials)) {
     const [name] = credentials.split(":");
     setUserSession(event, { user: { name, isAuthenticated: true } }, cookieConfig);
+    console.log(`User ${name} authenticated`, getRequestIP(event, { xForwardedFor: true }));
+    
     return
   }
 
