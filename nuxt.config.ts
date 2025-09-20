@@ -2,13 +2,18 @@ export default defineNuxtConfig({
   modules: [
     '@nuxt/eslint',
     '@nuxt/ui',
-    // '@vueuse/nuxt',
     '@nuxtjs/color-mode',
+    'nuxt-security'
   ],
 
   css: ['~/assets/css/main.css'],
 
   runtimeConfig: {
+    basicAuthCookie: {
+      enabled: process.env.NUXT_BASIC_AUTH_COOKIE_ENABLED || true,
+      users: process.env.NUXT_BASIC_AUTH_COOKIE_USERS || '',
+    },
+
     transmission: {
       host: process.env.NUXT_TRANSMISSION_HOST,
       port: process.env.NUXT_TRANSMISSION_PORT,
@@ -35,4 +40,12 @@ export default defineNuxtConfig({
   devtools: {
     enabled: true,
   },
+
+  routeRules: {
+    '/api/gettorrents': {
+      security: {
+        rateLimiter: false
+      }
+    }
+  }
 })

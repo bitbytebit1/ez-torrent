@@ -14,7 +14,8 @@ export default defineEventHandler(async (event) => {
     return new Promise((resolve, reject) => {
       transmission.sessionStats((err, result) => {
         if (err) {
-          reject(err)
+          // reject(err)
+          return []
         } else {
           resolve(result)
         }
