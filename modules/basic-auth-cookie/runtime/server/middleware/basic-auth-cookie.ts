@@ -11,20 +11,22 @@ export default defineEventHandler(async (event) => {
 
   // Validate X-Forwarded-Proto
   if (process.env.NODE_ENV === "production" && getRequestHeader(event, "x-forwarded-proto") !== "https") {
+    console.log('Insecure request, X-Forwarded-Proto is not https');
     return unauthorized(event);
   }
 
   // Check if user has a valid session
   const session = await getUserSession(event);
   if (session?.user?.isAuthenticated) {
-    setResponseHeader(event, "Cache-Control", "no-store, private, max-age=0");
     setUserSession(event, session, cookieConfig);
+    setResponseHeader(event, "Cache-Control", "no-store, private, max-age=0");
     return
   }
 
   // Basic auth should never be longer than 4096 bytes, must be present and start with "Basic "
   const authHeader = getRequestHeader(event, "authorization");
   if (!authHeader || authHeader.length > 4096) {
+    console.log('Missing or too long Authorization header');
     return unauthorized(event);
   }
   const [scheme, authParam] = authHeader.split(" ");
