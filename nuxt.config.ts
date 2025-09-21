@@ -3,7 +3,7 @@ export default defineNuxtConfig({
     '@nuxt/eslint',
     '@nuxt/ui',
     '@nuxtjs/color-mode',
-    'nuxt-security'
+    'nuxt-security',
   ],
 
   css: ['~/assets/css/main.css'],
@@ -46,8 +46,8 @@ export default defineNuxtConfig({
   routeRules: {
     '/api/gettorrents': {
       security: {
-        rateLimiter: false
-      }
-    }
-  }
+        rateLimiter: false,
+      },
+    },
+  },
 })

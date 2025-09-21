@@ -11,7 +11,7 @@ export default withNuxt(
       'brace-style': ['error', '1tbs', { allowSingleLine: false }],
       // 'brace-style': 'off',
       'curly': ['error', 'all'],
-      'no-console': [0],
+      'no-console': ['warn', { allow: ['warn', 'error'] }],
       'vue/require-explicit-emits': 'off',
       'vue/block-order': ['error', {
         order: [['template', 'script'], 'style'],
