@@ -29,6 +29,8 @@ export default defineNuxtConfig({
     },
   },
 
+  buildCache: true,
+
   // pwa,
 
   eslint: {
