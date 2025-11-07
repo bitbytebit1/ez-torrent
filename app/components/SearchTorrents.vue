@@ -4,13 +4,15 @@ const columns = [{ accessorKey: 'title', header: '' }, { accessorKey: 'seeds', h
 
 // Input
 const query = ref('')
+const selectedItem = ref('')
+
 const categories = ref(['All', 'Audio', 'Video', 'Applications', 'Games', 'Porn', 'Other', 'Top100'])
 
 const category = ref('All')
 
 const { data, refresh, pending } = useLazyFetch('/api/searchtorrents', {
   method: 'POST',
-  body: { query, category },
+  body: { query: selectedItem, category },
   immediate: true,
   watch: false,
   server: false,
@@ -25,6 +27,24 @@ async function addTorrent ($event, torrent) {
     $event.target.style.color = resp ? 'green' : 'red'
   })
 }
+
+const { data: searchBoxData } = useFetch('/api/searchBox', {
+  method: 'POST',
+  body: { query },
+  transform: (data) => {
+    const items = query.value ? [query.value] : []
+    data?.description?.forEach((item) => {
+      items.push(item['#TITLE'])
+    })
+    return items
+  },
+  lazy: true,
+})
+
+function onItemSelect (item) {
+  selectedItem.value = item
+  refresh()
+}
 </script>
 
 <template>
@@ -32,12 +52,17 @@ async function addTorrent ($event, torrent) {
   <div
     class="flex items-center justify-center gap-3"
   >
-    <UInput
-      v-model="query"
+    <USelectMenu
+      v-model="selectedItem"
+      v-model:search-term="query"
+      :reset-search-term-on-blur="false"
+      :reset-search-term-on-select="false"
+      :items="searchBoxData"
       class="w-full"
       placeholder="Search"
+      ignore-filter
       icon="i-heroicons-magnifying-glass-20-solid"
-      @keydown.enter="refresh"
+      @update:model-value="onItemSelect"
     />
     <USelect
       v-model="category"
