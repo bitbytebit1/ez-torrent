@@ -4,5 +4,6 @@ export default defineEventHandler(async (event) => {
     return { description: [] }
   }
 
-  return $fetch(`https://imdb.iamidiotareyoutoo.com/search?q=${body.query}`)
+  // const response = await $fetch(`https://imdb.iamidiotareyoutoo.com/search?q=${body.query}`).catch(() => null)
+  return { description: [] }
 })
