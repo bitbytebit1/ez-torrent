@@ -10,7 +10,7 @@ export default defineNuxtConfig({
 
   app: {
     head: {
-      title: 'Cipher Tasks',
+      title: 'Arsenal',
       meta: [
         {
           name: 'description',
