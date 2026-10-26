@@ -95,7 +95,7 @@ function onItemSelect (item) {
         <!-- game-icons-pirate-flag -->
         <template v-if="row.original.id">
           <a
-            :href="`https://thepiratebay10.info/torrent/${row.original.id}/`"
+            :href="`https://thepiratebay.org/torrent/${row.original.id}/`"
             target="_blank"
             rel="noopener noreferrer"
             class="flex items-center h-full px-2"
